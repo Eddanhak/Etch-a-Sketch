@@ -9,13 +9,20 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="container", id="container-main">
-      <p id="p-generate-text">&#8595 How many grids to generate? &#8595</p>
-      <p id="p-maximum-amount">(Max 100)</p>
-      <input type="text" id="input-grids">
-      <button id="button-generate">Generate</button>
-        <div class="container", id="container-grid">
-        </div>
+    <div class="container" id="container-main">
+      <div class="container" id="container-functions">
+        <input type="color" name="colorPick" id="colorPick">
+        <button class="btn" id="btn-random-color">Random Color</button>
+        <button class="btn" id="btn-clear-grid">Clear Grid</button>
+      </div>
+      <div class="container", id="container-main-grid">
+        <p id="p-generate-text">&#8595 How many grids to generate? &#8595</p>
+        <p id="p-maximum-amount">(Max 100)</p>
+        <input type="text" id="input-grids">
+        <button id="button-generate">Generate</button>
+          <div class="container", id="container-grid">
+          </div>
+      </div>
     </div>
 </body>
 </html>

@@ -20,58 +20,45 @@ const mainGrid = document.querySelector("#container-grid");
 const inputGridNumber = document.querySelector("#input-grids");
 const buttonGenerate = document.querySelector("#button-generate");
 
+
 /*
 
 function that generates grid.
 1 argument, how many grids to generate.
 
-Creates (numb) of divs, 
+Creates (numb) of divs, in white color.
+Add a eventlistener to every div, Hover event to change color of every div.
+
 
 
 */
 
 
-
 function createGrid(numb) {
+    adjustGrid(mainGrid, numb);
+    
     for(let i = 0; i < Math.pow(numb, 2); i++) {
         let tempDiv = document.createElement("div");
-        let tempPara = document.createElement("p");
-        addDivStyle(tempDiv);
-        addParagraphStyle(tempPara);
-        tempDiv.appendChild(tempPara);
         mainGrid.appendChild(tempDiv);
-        adjustGrid(mainGrid, numb);
+        addEvent(tempDiv);
+        addDivStyle(tempDiv);
     }
 }
 
 function adjustGrid(cont, grids) {
     cont.style.gridTemplateColumns = `repeat(${grids}, 1fr)`;
-    cont.style.gridAutoRows = `repeat(${grids}, 1fr)`;
+    cont.style.gridTemplateRows = `repeat(${grids}, 1fr)`;
 
 }
-
 
 
 function addDivStyle(divv) {
-    divv.style.backgroundColor = randomColor();
-    addFlex(divv);
+    divv.classList.add("grid-div");
 }
 
 
-
-function addFlex(tagg) {
-    tagg.style.display =  "flex";
-    tagg.style.justifyContent = "center";
-    tagg.style.alignItems = "center";
-
-
-}
-
-
-function addParagraphStyle(para) {
-    para.textContent = "What is the deal?";
-    para.style.fontSize = "20px";
-    para.style.color = randomColor();
+function addEvent(divv) {
+    divv.addEventListener("mousedown", (event) => divv.style.backgroundColor = randomColor());
 }
 
 
@@ -96,4 +83,6 @@ function randomColor() {
 
 
 
-createGrid(32);
+createGrid(40);
+
+
