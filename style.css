@@ -43,6 +43,7 @@ body {
     display: grid;
     width: 1000px;
     height: 1000px;
+    background-color: white;
 }
 
 #p-generate-text {
@@ -70,12 +71,8 @@ body {
 
 
 .grid-div {
-    background-color: rgb(255, 255, 255);
 }
 
-
 .grid-div:hover {
-    background-color: rgb(6, 131, 240);
-
 
 }

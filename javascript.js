@@ -19,6 +19,17 @@ let arrayGrid = [];
 const mainGrid = document.querySelector("#container-grid");
 const inputGridNumber = document.querySelector("#input-grids");
 const buttonGenerate = document.querySelector("#button-generate");
+const buttonClearGrid = document.querySelector("#btn-clear-grid");
+
+let mouseClicked = false;
+let mouseOver = false;
+
+document.body.onmousedown = () => (mouseClicked = true);
+document.body.onmouseup = () => (mouseClicked = false);
+document.body.onmouseover = () => (mouseOver = true);
+
+
+
 
 
 /*
@@ -28,6 +39,10 @@ function that generates grid.
 
 Creates (numb) of divs, in white color.
 Add a eventlistener to every div, Hover event to change color of every div.
+
+Have :hover css class pre declared in css file.
+Get the background-color value from that into random?
+
 
 
 
@@ -41,25 +56,48 @@ function createGrid(numb) {
         let tempDiv = document.createElement("div");
         mainGrid.appendChild(tempDiv);
         addEvent(tempDiv);
-        addDivStyle(tempDiv);
     }
 }
 
+
+
 function adjustGrid(cont, grids) {
+    /*
+    Adjusts grid depending on the input.
+    Creates GRIDxGRID by input.
+    */
     cont.style.gridTemplateColumns = `repeat(${grids}, 1fr)`;
     cont.style.gridTemplateRows = `repeat(${grids}, 1fr)`;
 
 }
 
 
-function addDivStyle(divv) {
-    divv.classList.add("grid-div");
-}
-
-
 function addEvent(divv) {
-    divv.addEventListener("mousedown", (event) => divv.style.backgroundColor = randomColor());
+    /*
+    Adds eventlistener to every div. 
+    Applies randomColor function to every div when event is true.
+    
+     */
+        divv.addEventListener("mousedown", (event) => drawColor(divv));
+        divv.addEventListener("mouseover", (event) => drawColor(divv));
 }
+
+
+function drawColor(divv) {
+    if(mouseClicked && mouseOver) {
+        divv.style.backgroundColor = randomColor();
+    }
+    else {
+        return;
+    }
+}
+
+
+function clearGrid(e) {
+
+
+}
+
 
 
 
@@ -84,5 +122,7 @@ function randomColor() {
 
 
 createGrid(40);
+
+buttonClearGrid.addEventListener("click", clearGrid);
 
 
