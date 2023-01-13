@@ -20,17 +20,28 @@ const mainGrid = document.querySelector("#container-grid");
 const inputGridNumber = document.querySelector("#input-grids");
 const buttonGenerate = document.querySelector("#button-generate");
 const buttonClearGrid = document.querySelector("#btn-clear-grid");
+const buttonRandomColor = document.querySelector("#btn-random-color");
+const colorPick = document.querySelector("#color-pick");
+const inputGrids = document.querySelector("#input-grids");
+const bgColor = document.querySelector("#bg-color-pick");
+bgColor.value = "#ffffff";
+
+
+
 
 let mouseClicked = false;
 let mouseOver = false;
+let randButtonCheck = false;
+let targetColor = true;
+
+let defaultGridValue = 16;
+let defaultBgColor = "rgb(255, 255, 255)";
+let pickedBgColor = bgColor.value;
+
 
 document.body.onmousedown = () => (mouseClicked = true);
 document.body.onmouseup = () => (mouseClicked = false);
 document.body.onmouseover = () => (mouseOver = true);
-
-
-
-
 
 /*
 
@@ -49,7 +60,40 @@ Get the background-color value from that into random?
 */
 
 
+function generateGrid(numb = 16) {
+    /*
+    Generates INTxINT grid based on the inputted number.
+    Default value when page is loaded, set to 16.
+    16x16 GRID.
+    */
+    if(inputGrids.value === "") {
+        createGrid(numb);
+    }
+    else {
+        createGrid(parseInt(inputGrids.value));
+    }
+
+
+}
+
+
+function removeGrids() {
+    /*
+    Removes all divs from grid container.
+    Is run everytime before grid is generated to not have any colored divs when user generates new grid.
+    */
+
+    let gridArray = Array.from(mainGrid.children);
+    gridArray.forEach(grid => mainGrid.removeChild(grid));
+    
+
+}
+
+
+
+
 function createGrid(numb) {
+    removeGrids();
     adjustGrid(mainGrid, numb);
     
     for(let i = 0; i < Math.pow(numb, 2); i++) {
@@ -84,21 +128,87 @@ function addEvent(divv) {
 
 
 function drawColor(divv) {
-    if(mouseClicked && mouseOver) {
+
+    /*
+    Checks if random color button is pressed.
+    If pressed, randomize every divs background color when mouse is pressed and hovers over.
+    If not pressed, use the color pickers color.
+    */
+
+
+    if(mouseClicked && mouseOver && randButtonCheck) {
         divv.style.backgroundColor = randomColor();
     }
-    else {
-        return;
+    else if(mouseClicked && mouseOver) {
+        divv.style.backgroundColor = getChosenColor();
     }
 }
+
+
+
+function getChosenColor() {
+
+    /*
+    Gets the current chosen color in the color picker.
+    */
+
+    let pickedColor = String(colorPick.value);
+    return pickedColor;
+
+}
+
+
+
+
+
+function toggleRandomColorBtn(btn) {
+    /*
+    When random color button is pressed, fire this function.
+    Change the appearance of the button, and use alter boolean value of randButtonCheck.
+    
+    if statement(if randButtonCheck is true): Change boolean to false.
+    Change button color to default(not active color).
+    Make font size smaller.
+    
+    if statement(if randButtonCheck is false): change boolean to true.
+    Change button color to some green.
+    Make font size bigger. Add CSS transition for font.
+
+    */
+
+    if (randButtonCheck) {
+        btn.style.backgroundColor = defaultBgColor;
+        btn.style.color = "black";
+        btn.style.fontSize = "initial";
+        randButtonCheck = false;
+
+    }
+    else {
+        btn.style.backgroundColor = "rgba(125, 235, 1, 0.5)";
+        btn.style.fontSize = "18px";
+        btn.style.color = "white";
+        btn.style.transition = "0.3s";
+        randButtonCheck = true;
+    }
+
+
+
+}
+
 
 
 function clearGrid(e) {
 
+    /*
+    When Clear grid is pressed, iterate through every div and set them to white color.
+    */
 
+    let gridArray = Array.from(mainGrid.children);
+    console.log(gridArray)
+    // if(gridArray[0]){
+    //     gridArray.forEach(grid => grid.style.backgroundColor = bgColor.value);
+    // }
 }
-
-
 
 
 function randNumber() {
@@ -108,9 +218,9 @@ function randNumber() {
 
 }
 
-// Returns random rgb string in format = rgb(int, int, int);
 
 function randomColor() {
+    // Returns random rgb string in format = rgb(int, int, int);
     let tempArr = [];
     for(let i = 0; i < 3; i++){
         tempArr[i] = randNumber();
@@ -120,9 +230,11 @@ function randomColor() {
 }
 
 
-
-createGrid(40);
+generateGrid();
 
 buttonClearGrid.addEventListener("click", clearGrid);
+buttonRandomColor.addEventListener("click", (event) => toggleRandomColorBtn(buttonRandomColor));
+buttonGenerate.addEventListener("click", generateGrid);
+
 
 

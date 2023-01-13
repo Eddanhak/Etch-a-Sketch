@@ -11,17 +11,29 @@ body {
     display: flex;
 }
 
-#colorPick {
+.inputs {
     height: 100px;
     width:  100px;
-    margin-right: 80px;
     margin-bottom: 20px;
+
+}
+
+
+#color-pick {
+    margin-right: 80px;
+}
+
+#bg-color-pick {
+    margin-left: 80px;
 }
 
 .btn {
     height: 80px;
+    width: 80px;
     margin-bottom: 10px;
     margin-right: 80px;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
 #container-main {
@@ -31,6 +43,7 @@ body {
 #container-functions {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 #container-main-grid {
@@ -44,6 +57,14 @@ body {
     width: 1000px;
     height: 1000px;
     background-color: white;
+}
+
+
+#container-bg-color {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 #p-generate-text {
@@ -66,13 +87,23 @@ body {
     font-size: 18px;
     margin-bottom: 10px;
     border-radius: 20px;
-    transition: font-size 0,6s;
 }
 
+#button-generate:active {
+    font-size: 20px;
+}
+
+
+#btn-bg-color {
+    width: 100px;
+    margin-right: 0px;
+    margin-left: 80px;
+}
+
+#btn-reset-bg {
+    margin-right: 0px;
+    margin-left: 80px;
+}
 
 .grid-div {
-}
-
-.grid-div:hover {
-
 }
