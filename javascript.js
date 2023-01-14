@@ -21,13 +21,15 @@ const inputGridNumber = document.querySelector("#input-grids");
 const buttonGenerate = document.querySelector("#button-generate");
 const buttonClearGrid = document.querySelector("#btn-clear-grid");
 const buttonRandomColor = document.querySelector("#btn-random-color");
+const buttonBgColor = document.querySelector("#btn-bg-color");
+const buttonRandomBg = document.querySelector("#btn-fill-random");
 const colorPick = document.querySelector("#color-pick");
 const inputGrids = document.querySelector("#input-grids");
 const bgColor = document.querySelector("#bg-color-pick");
+
+
+
 bgColor.value = "#ffffff";
-
-
-
 
 let mouseClicked = false;
 let mouseOver = false;
@@ -36,12 +38,8 @@ let targetColor = true;
 
 let defaultGridValue = 16;
 let defaultBgColor = "rgb(255, 255, 255)";
-let pickedBgColor = bgColor.value;
 
 
-document.body.onmousedown = () => (mouseClicked = true);
-document.body.onmouseup = () => (mouseClicked = false);
-document.body.onmouseover = () => (mouseOver = true);
 
 /*
 
@@ -122,6 +120,9 @@ function addEvent(divv) {
     Applies randomColor function to every div when event is true.
     
      */
+        divv.onmousedown = () => (mouseClicked = true);
+        divv.onmouseup = () => (mouseClicked = false);
+        divv.onmouseover = () => (mouseOver = true);
         divv.addEventListener("mousedown", (event) => drawColor(divv));
         divv.addEventListener("mouseover", (event) => drawColor(divv));
 }
@@ -204,10 +205,8 @@ function clearGrid(e) {
     */
 
     let gridArray = Array.from(mainGrid.children);
-    console.log(gridArray)
-    // if(gridArray[0]){
-    //     gridArray.forEach(grid => grid.style.backgroundColor = bgColor.value);
-    // }
+    gridArray.forEach(grid => grid.style.backgroundColor = defaultBgColor);
+
 }
 
 
@@ -217,6 +216,30 @@ function randNumber() {
 
 
 }
+
+
+function changeBgColor() {
+
+    /*
+    Gets value from colorpicker.
+    Loops through all divs in grid.
+    assigns new bg color to all the divs.
+    */
+
+    let gridArray = Array.from(mainGrid.children);
+    gridArray.forEach(grid => grid.style.backgroundColor = bgColor.value);
+
+}
+
+
+
+function randomBgColor() {
+    let gridArray = Array.from(mainGrid.children);
+    gridArray.forEach(grid => grid.style.backgroundColor = randomColor());
+
+}
+
+
 
 
 function randomColor() {
@@ -235,6 +258,6 @@ generateGrid();
 buttonClearGrid.addEventListener("click", clearGrid);
 buttonRandomColor.addEventListener("click", (event) => toggleRandomColorBtn(buttonRandomColor));
 buttonGenerate.addEventListener("click", generateGrid);
-
-
+buttonBgColor.addEventListener("click", changeBgColor);
+buttonRandomBg.addEventListener("click", randomBgColor);
 
